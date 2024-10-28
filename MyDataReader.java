@@ -1,3 +1,7 @@
+/**
+ * @author Christian Burke and Michael D'Amico
+ * @version 29 October 2024
+ */
 package songpack;
 
 import java.io.BufferedReader;
@@ -6,11 +10,15 @@ import java.io.IOException;
 
 public class MyDataReader {
     
-    /**
+    public MyDataReader(String filePath) {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Process a line from the TSV file and returns the corresponding song object
      * @param inputLine TSV line
      * @return Song object
-     *
+     */
     private static Song lineToReport(String inputLine)
     {
         String[] items = inputLine.split("\t");
@@ -31,7 +39,7 @@ public class MyDataReader {
      * @param tag one of the six tags: rap, rb, pop, rock, misc, and country
      * @return binary search tree of songs
      * @throws IOException
-     *
+     */
     public static BinarySearchTree readFileToBST(String tsvFilePath, String tag) throws IOException
     {
         BinarySearchTree songsBST= new BinarySearchTree();
@@ -50,5 +58,3 @@ public class MyDataReader {
         
         return songsBST;
     }
-    */
-}
