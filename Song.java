@@ -1,3 +1,7 @@
+/**
+ * @author Christian Burke and Michael D'Amico
+ * @version 29 October 2024
+ */
 package songpack;
 
 public class Song implements Comparable<Song> {
