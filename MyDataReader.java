@@ -48,7 +48,7 @@ public class MyDataReader {
             String line = TSVReader.readLine();
             while ((line = TSVReader.readLine()) != null) {   
                 Song song = MyDataReader.lineToReport(line);
-                if(song.getTag().equals(tag))
+                if(song.getTag().equalsIgnoreCas(tag)) // added cause I kept doing Rock instead of rock
                   songsBST.insert(song);
               counter+=1;
               // using this to view progress
