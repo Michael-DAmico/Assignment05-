@@ -22,23 +22,7 @@ public class BinarySearchTree {
 		root = null;
 	}
 	
-	/*
-	private boolean isValidBST(Node root) {
-		if (root == null)
-			return true;
-		if (root.left  == null && root.right == null)
-			return true;
-		if(root.left!=null && root.data.compareTo(root.left.data)<=0)
-			return false;
-		if(root.right!=null && root.data.compareTo(root.right.data)> 0 )// dont think its zero
-			return false;
-		
-		boolean bl = isValidBST(root.left);
-		boolean br = isValidBST(root.right);
-		return br && bl;
-		
-	}
-	*/
+
 	
 	
 	
@@ -116,21 +100,22 @@ public class BinarySearchTree {
 	
 	
 	public boolean isBST() {
-		return isBSTRecursive(root, null, null);
+		return isValidBST(root);
 	}
-	private boolean isBSTRecursive(Node node, Song min, Song max) {
-	    if (node == null) {
-	        return true;
-	    }
-
-	    // If node's data is less than or equal to the min allowed or more than the max, it violates BST properties
-	    if ((min != null && node.data.compareTo(min) <= 0) || (max != null && node.data.compareTo(max) > 0)) {
-	        return false;
-	   
-	    }
-
-	    // Recursively check the left and right subtrees with updated min and max constraints
-	    return isBSTRecursive(node.left, min, node.data) && isBSTRecursive(node.right, node.data, max);
+	private boolean isValidBST(Node root) {
+		if (root == null)
+			return true;
+		if (root.left  == null && root.right == null)
+			return true;
+		if(root.left!=null && root.data.compareTo(root.left.data)<=0)
+			return false;
+		if(root.right!=null && root.data.compareTo(root.right.data)> 0 )// dont think its zero
+			return false;
+		
+		boolean bl = isValidBST(root.left);
+		boolean br = isValidBST(root.right);
+		return br && bl;
+		
 	}
 	
 	
