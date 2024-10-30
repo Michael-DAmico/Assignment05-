@@ -22,6 +22,7 @@ public class BinarySearchTree {
 		root = null;
 	}
 	
+	/*
 	private boolean isValidBST(Node root) {
 		if (root == null)
 			return true;
@@ -37,6 +38,9 @@ public class BinarySearchTree {
 		return br && bl;
 		
 	}
+	*/
+	
+	
 	
 	public ArrayList<Song> toSortedArrayList(){
 		ArrayList<Song> result = new ArrayList<>();
@@ -57,6 +61,10 @@ public class BinarySearchTree {
 	    
 	}
 
+	
+	
+	
+	
 	public void insert(Song item) {
 		root = insertRecursive(root, item);
 		}
@@ -79,6 +87,8 @@ public class BinarySearchTree {
 
 	
 	
+		
+		
 	public ArrayList<Song> search(int views){
 		ArrayList<Song> result = new ArrayList<>();
 	    searchRecursive(root, views, result);
@@ -103,6 +113,8 @@ public class BinarySearchTree {
 	}
 	
 	
+	
+	
 	public boolean isBST() {
 		return isBSTRecursive(root, null, null);
 	}
@@ -122,6 +134,8 @@ public class BinarySearchTree {
 	}
 	
 	
+	
+	
 	public BinarySearchTree clone() {
 		BinarySearchTree clonedTree = new BinarySearchTree();
 		clonedTree.root = cloneNode(this.root);
@@ -138,6 +152,9 @@ public class BinarySearchTree {
 		 //notice we visit the left and right children before processing the current newNode
 	}
 	
+	
+	
+	
 	public ArrayList<String> popularArtists(){
 		ArrayList<String> topArtists = new ArrayList<>();
 	    int maxViews = -1;
@@ -145,28 +162,30 @@ public class BinarySearchTree {
 	    return topArtists;
 	}
 
-	private void findPopularArtists(Node node, ArrayList<String> topArtists, int maxViews) {
-	    if (node == null) return;
+	private int findPopularArtists(Node node, ArrayList<String> topArtists, int maxViews) {
+	    if (node == null) return maxViews;
 
-	    // Traverse the left subtree
-	    findPopularArtists(node.left, topArtists, maxViews);
+	    // Traverse the left subtree and update maxViews
+	    maxViews = findPopularArtists(node.left, topArtists, maxViews);
 
-	    // Process current node
+	    // Process the current node
 	    int views = node.data.getViews();
 	    if (views > maxViews) {
-	        topArtists.clear(); // new maximum, clear old list
-	        maxViews = views;   // update maximum
+	        topArtists.clear();  // New maximum, clear old list
+	        maxViews = views;    // Update maximum
 	        topArtists.add(node.data.getArtist());
 	    } else if (views == maxViews) {
-	        topArtists.add(node.data.getArtist()); // add artist with matching max views
+	        topArtists.add(node.data.getArtist()); // Add artist with matching max views
 	    }
 
 	    // Traverse the right subtree
-	    findPopularArtists(node.right, topArtists, maxViews);
+	    return findPopularArtists(node.right, topArtists, maxViews);
 	}
 	
 	
-	public Node fliterByView(int minView, int maxView) {
+	
+	
+	public Node filterByView(int minView, int maxView) {
 		 root = filterByViewHelper(root, minView, maxView);
 		 return root;
 	}
@@ -175,12 +194,17 @@ public class BinarySearchTree {
 		if (node == null) {
 			return null;
 		}
+	// Log each node's view count and action taken
+	// System.out.println("Checking node with views: " + node.data.getViews());
+	
 	// Remove nodes less than minView
 	if (node.data.getViews() < minView) {
+		//System.out.println("Removing node with views < " + minView);
 		return filterByViewHelper(node.right, minView, maxView);
 	}
 	// remove nodes greater than maxView
 	if (node.data.getViews() > maxView) {
+		//System.out.println("Removing node with views > " + maxView);
 		return filterByViewHelper(node.left, minView, maxView);
 	}
 	// Node is within range, so apply filter to children
@@ -188,6 +212,33 @@ public class BinarySearchTree {
     node.right = filterByViewHelper(node.right, minView, maxView);
     return node;
 	}
+
+	
+	
+	
+	
+	public ArrayList<Song> getTop10Songs() {
+	    ArrayList<Song> topSongs = new ArrayList<>();
+	    getTop10SongsHelper(root, topSongs);
+	    return topSongs;
+	}
+
+	private void getTop10SongsHelper(Node node, ArrayList<Song> topSongs) {
+	    if (node == null || topSongs.size() >= 10) return;
+
+	    // Traverse right subtree first for highest views
+	    getTop10SongsHelper(node.right, topSongs);
+
+	    // Add the current song if we haven't reached 10 yet
+	    if (topSongs.size() < 10) {
+	        topSongs.add(node.data);
+	    }
+
+	    // Traverse left subtree
+	    getTop10SongsHelper(node.left, topSongs);
+	}
+	
+}
  
 
 }
