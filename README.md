@@ -1,7 +1,7 @@
 # Assignment05-
 Songs
 
-To run file ensure the aruments are set to
+To run file ensure the arguments are set to
 "C:\file\location\of\song_lyrics.tsv"
 "rock"
 
