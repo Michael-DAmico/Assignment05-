@@ -58,3 +58,27 @@ public class MyDataReader {
         
         return songsBST;
     }
+
+	/**
+    * This method takes in the TSV file path and returns an ArrayList of all Song objects in the file
+    * @param tsvFilePath tsv file path
+    * @return ArrayList of Song objects
+    * @throws IOException
+    */
+    public static ArrayList<Song> readFileToArrayList(String tsvFilePath) throws IOException {
+	    ArrayList<Song> songsList = new ArrayList<>();
+	    int counter = 0;
+	    
+	    try (BufferedReader TSVReader = new BufferedReader(new FileReader(tsvFilePath))) {
+		    String line = TSVReader.readLine(); // Skip header if there is one
+		    while ((line = TSVReader.readLine()) != null) {
+			    Song song = MyDataReader.lineToReport(line);
+			    songsList.add(song);
+			    counter++;
+			    // Print progress for every 50,000 records
+			    	if (counter % 50000 == 0)
+			    		System.out.println(counter + " records added");
+		    }
+	    }
+	    return songsList;
+    }
