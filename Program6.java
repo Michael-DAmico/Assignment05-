@@ -46,7 +46,7 @@ public class program6 {
         
         for (String query : queries) {
             long searchStart = System.currentTimeMillis();
-            searchEngine.search(query);
+            searchEngine.search(query, songs);
             long searchEnd = System.currentTimeMillis();
             System.out.println((searchEnd - searchStart) + " milliseconds to search for \"" + query + "\"\n");
         }
