@@ -14,7 +14,6 @@ import java.util.*;
  */
 public class MySearchEngine {
     // Attributes
-    private List<Song> songs;
     private TreeMap<Song, TreeMap<String, Double>> tf;
     private TreeMap<String, Double> idf;
     private TreeMap<Song, Double> avgLength;
@@ -26,21 +25,21 @@ public class MySearchEngine {
      *
      * @param songs the list of {@code Song} objects to be indexed by the search engine
      */
-    public MySearchEngine(List<Song> songs) {
-        this.songs = songs;
+    public MySearchEngine(ArrayList<Song> songs) {
         this.tf = new TreeMap<>();
         this.idf = new TreeMap<>();
         this.avgLength = new TreeMap<>();
-        calculateTF();
-        calculateIDF();
-        calculateAvgLength();
+        calculateTF(songs);
+        calculateIDF(songs);
+        calculateAvgLength(songs);
     }
 
     /**
      * Calculates the term frequency (TF) for each song. The frequency of each word 
      * is calculated relative to the total number of words in the song lyrics.
+     * @param ArrayList of Song to search through
      */
-    public void calculateTF() {
+    public void calculateTF(ArrayList<Song> songs) {
         for (Song song : songs) {
             String[] words = song.getLyrics().split(" ");
             TreeMap<String, Double> wordFreq = new TreeMap<>();
@@ -59,8 +58,9 @@ public class MySearchEngine {
     /**
      * Calculates the inverse document frequency (IDF) for each unique term in the lyrics.
      * The IDF is calculated based on the number of songs that contain each term.
+     * @param ArrayList of Song to search through
      */
-    public void calculateIDF() {
+    public void calculateIDF(ArrayList<Song> songs) {
         int totalSongs = songs.size();
         for (Song song : songs) {
             Set<String> uniqueWords = new TreeSet<>(Arrays.asList(song.getLyrics().split(" ")));
@@ -78,8 +78,9 @@ public class MySearchEngine {
     /**
      * Calculates the average length of songs based on the total number of words 
      * in each song's lyrics.
+     * @param ArrayList of Song to search through
      */
-    public void calculateAvgLength() {
+    public void calculateAvgLength(ArrayList<Song> songs) {
         double totalLength = 0;
         for (Song song : songs) {
             totalLength += song.getLyrics().split(" ").length;
@@ -146,8 +147,9 @@ public class MySearchEngine {
      * the top-5 results.
      *
      * @param query the search query
+     * @param ArrayList of Song to search through
      */
-    public void search(String query) {
+    public void search(String query, ArrayList<Song> songs) {
         String[] terms = query.toLowerCase().split(" ");
         TreeMap<Song, Double> relevanceScores = new TreeMap<>();
 
