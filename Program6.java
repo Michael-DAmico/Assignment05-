@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * It reads a TSV file containing song data, builds an index, and performs searches 
  * for specified queries, measuring the time taken for each operation.
  */
-public class program6 {
+public class Program6 {
     /**
      * The main method reads a TSV file path from the command-line arguments, 
      * initializes the search engine, and performs search queries.
