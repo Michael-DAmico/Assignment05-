@@ -275,5 +275,10 @@ public class BinarySearchTree {
     node.right = filterByViewHelper(node.right, minView, maxView);
     return node;
 	}
-	
+	public int getHeight(Node node) {
+	        if (node == null) {
+	            return 0;
+	        }
+	        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+	    }
 }
