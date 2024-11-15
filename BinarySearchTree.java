@@ -1,6 +1,6 @@
 /**
  * @author Christian Burke and Michael D'Amico
- * @version 29 October 2024
+ * @version 14 November 2024
  */
 package songpack;
 
@@ -20,7 +20,7 @@ public class BinarySearchTree {
 		Song data;
 		Node left;
 		Node right;
-		int height;
+		int height;//new
 		 /**
          * Constructor for Node.
          * @param data The Song data to be stored in the node.
@@ -28,7 +28,7 @@ public class BinarySearchTree {
 		public Node(Song data) {
 			this.data = data;
 			left = right = null;
-			height = 1;
+			height = 1; // new
 		}
 	}
 	Node root;// attribute
@@ -277,6 +277,10 @@ public class BinarySearchTree {
     node.right = filterByViewHelper(node.right, minView, maxView);
     return node;
 	}
+
+	/*
+	 * 
+	 */
 	public int getHeight(Node node) {
 	        if (node == null) {
 	            return 0;
