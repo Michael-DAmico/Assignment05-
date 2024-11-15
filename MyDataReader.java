@@ -1,25 +1,23 @@
 /**
  * @author Christian Burke and Michael D'Amico
- * @version 29 October 2024
+ * @version 14 November 2024
  */
 package songpack;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MyDataReader {
     
-    public MyDataReader(String filePath) {
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
      * Process a line from the TSV file and returns the corresponding song object
      * @param inputLine TSV line
      * @return Song object
      */
-    private static Song lineToReport(String inputLine)
+    static Song lineToReport(String inputLine)
     {
         String[] items = inputLine.split("\t");
         String title= items[0];
@@ -44,41 +42,69 @@ public class MyDataReader {
     {
         BinarySearchTree songsBST= new BinarySearchTree();
         int counter = 0;
-        BufferedReader TSVReader = new BufferedReader(new FileReader(tsvFilePath));
-            String line = TSVReader.readLine();
+        try (BufferedReader TSVReader = new BufferedReader(new FileReader(tsvFilePath))) {
+			String line = TSVReader.readLine();
             while ((line = TSVReader.readLine()) != null) {   
                 Song song = MyDataReader.lineToReport(line);
-                if(song.getTag().equalsIgnoreCas(tag)) // added cause I kept doing Rock instead of rock
+                if(song.getTag().equalsIgnoreCase(tag))// added ignoreCase 
                   songsBST.insert(song);
               counter+=1;
               // using this to view progress
               if(counter%50000==0)
                   System.out.println(counter + " records added");
             }
+		}
+            return songsBST;
+    }
+    
+    /**
+     * This method takes in the TSV file path and returns an ArrayList of all Song objects in the file
+     * @param tsvFilePath tsv file path
+     * @return ArrayList of Song objects
+     * @throws IOException
+     */
+    public static ArrayList<Song> readFileToArrayList(String tsvFilePath) throws IOException {
+        ArrayList<Song> songsList = new ArrayList<>();
+        int counter = 0;
+        try (BufferedReader TSVReader = new BufferedReader(new FileReader(tsvFilePath))) {
+            String line = TSVReader.readLine(); // Skip header if there is one
+            while ((line = TSVReader.readLine()) != null) {
+                Song song = MyDataReader.lineToReport(line);
+                songsList.add(song);
+                counter++;
+                // Print progress for every 50,000 records
+                if (counter % 50000 == 0)
+                    System.out.println(counter + " records added");
+            }
+        }
+        return songsList;
+    }
+    
+    /**
+     * Reads songs from a TSV file using the lineToReport method.
+     * @param filePath Path to the TSV file.
+     * @return ArrayList of Song objects.
+     */
+    public static ArrayList<Song> readSongsFromTSV(String filePath) {
+        ArrayList<Song> songs = new ArrayList<>();
         
-        return songsBST;
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            
+            // Skip header if present
+            br.readLine();
+            
+            while ((line = br.readLine()) != null) {
+                // Use lineToReport to parse the line and create a Song object
+                Song song = MyDataReader.lineToReport(line);
+                songs.add(song);
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return songs;
     }
 
-	/**
-    * This method takes in the TSV file path and returns an ArrayList of all Song objects in the file
-    * @param tsvFilePath tsv file path
-    * @return ArrayList of Song objects
-    * @throws IOException
-    */
-    public static ArrayList<Song> readFileToArrayList(String tsvFilePath) throws IOException {
-	    ArrayList<Song> songsList = new ArrayList<>();
-	    int counter = 0;
-	    
-	    try (BufferedReader TSVReader = new BufferedReader(new FileReader(tsvFilePath))) {
-		    String line = TSVReader.readLine(); // Skip header if there is one
-		    while ((line = TSVReader.readLine()) != null) {
-			    Song song = MyDataReader.lineToReport(line);
-			    songsList.add(song);
-			    counter++;
-			    // Print progress for every 50,000 records
-			    	if (counter % 50000 == 0)
-			    		System.out.println(counter + " records added");
-		    }
-	    }
-	    return songsList;
-    }
+}	
