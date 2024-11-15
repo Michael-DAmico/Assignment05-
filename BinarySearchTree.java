@@ -20,7 +20,8 @@ public class BinarySearchTree {
 		Song data;
 		Node left;
 		Node right;
-		int height;//new
+		int height;// new
+		
 		 /**
          * Constructor for Node.
          * @param data The Song data to be stored in the node.
@@ -28,10 +29,10 @@ public class BinarySearchTree {
 		public Node(Song data) {
 			this.data = data;
 			left = right = null;
-			height = 1; // new
+			height = 1;// new
 		}
 	}
-	Node root;// attribute
+	protected Node root;// attribute
 	
 	/**
      * Constructor for BinarySearchTree.
@@ -39,6 +40,18 @@ public class BinarySearchTree {
 	public BinarySearchTree() { // constructor
 		root = null;
 	}
+	
+	
+	
+	// Getting the height of a given node
+	protected int height(Node N) {
+		if (N == null)
+			return 0;
+		return N.height;
+	
+	}
+	
+	
 	
 	
 	/**
@@ -57,7 +70,7 @@ public class BinarySearchTree {
      * @param root The current node.
      * @param result The ArrayList to store the in-order traversal result.
      */
-	private void inOrderTraversal(Node root, ArrayList<Song> result) { //helpermethod
+	private void inOrderTraversal(Node root, ArrayList<Song> result) {
 		// TODO Auto-generated method stub
 		if (root == null)
 			return;
@@ -278,13 +291,24 @@ public class BinarySearchTree {
     return node;
 	}
 
+
 	/*
+	 * Computes the height of a given binary tree node.
 	 * 
+	 * The height of a node is defined as the number of edges on the longest path
+	 * from the node to a leaf. The height of a null node is considered to be 0.
+	 * 
+	 * @param node The node whose height is to be computed. If the node is null,
+	 *             the height is considered to be 0.
+	 * @return The height of the given node in the binary tree.
 	 */
 	public int getHeight(Node node) {
-	        if (node == null) {
-	            return 0;
-	        }
-	        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
-	    }
+        if (node == null) {
+            return 0;
+        }
+        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    }
+
+	
+	
 }
