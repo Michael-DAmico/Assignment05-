@@ -21,6 +21,8 @@ public class AVLTree extends BinarySearchTree {
         } else {
             node.right = insertAVL(node.right, item);
         }
+        // Update height after insertion
+        node.height = 1 + Math.max(getHeight((Node) node.left), getHeight((Node) node.right));
 
         return balance(node);
     }
@@ -51,6 +53,11 @@ public class AVLTree extends BinarySearchTree {
         Node T2	 = x.right;
         x.right = y;
         y.left = T2;
+
+        // Update heights
+        y.height = 1 + Math.max(getHeight((Node) y.left), getHeight((Node) y.right));
+        x.height = 1 + Math.max(getHeight((Node) x.left), getHeight((Node) x.right));
+
         return x;
     }
 
@@ -59,6 +66,11 @@ public class AVLTree extends BinarySearchTree {
         Node T2 = y.left;
         y.left = x;
         x.right = T2;
+
+        // Update heights
+        x.height = 1 + Math.max(getHeight((Node) x.left), getHeight((Node) x.right));
+        y.height = 1 + Math.max(getHeight((Node) y.left), getHeight((Node) y.right));
+
         return y;
     }
 
@@ -69,11 +81,11 @@ public class AVLTree extends BinarySearchTree {
         return getHeight(node.left) - getHeight(node.right);
     }
 
-    int getAVLHeight(Node node) {
+    public int getHeight(Node node) {
         if (node == null) {
             return 0;
         }
-        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        return node.height;
     }
 
     public int getLeftRotations() { return leftRotations; }
