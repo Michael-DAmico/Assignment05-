@@ -105,9 +105,9 @@ public class AVLTree extends BinarySearchTree{
 		
 		
 	/**
-     * Inserts a Song into the AVL tree and re-balances the tree as necessary.
-     * 
-     * @param data the Song to insert
+     * Inserts a Song item into the AVL Tree and balances the tree if necessary.
+     *
+     * @param item the Song object to be inserted.
      */	
 	@Override
 	public void insert(Song item) {
@@ -115,13 +115,13 @@ public class AVLTree extends BinarySearchTree{
     }
 	
 	
-	/**
-     * Recursive helper method to insert a Song into the subtree rooted at the given node.
-     * Balances the subtree after insertion.
-     * 
-     * @param node the root of the subtree where the Song should be inserted
-     * @param data the Song to insert
-     * @return the new root of the subtree after insertion and balancing
+	 /**
+     * Recursively inserts a Song item into the AVL Tree and ensures that
+     * the subtree is balanced after the insertion.
+     *
+     * @param node the current node in the AVL tree.
+     * @param item the Song object to be inserted.
+     * @return the balanced node after insertion.
      */
 	protected Node insertAVL(Node node, Song item) {
         if (node == null) {
@@ -138,12 +138,12 @@ public class AVLTree extends BinarySearchTree{
         return balance(node);
     }
 	
-	 /**
-     * Balances the subtree rooted at the given node.
-     * Depending on the balance factor, it applies rotations to maintain AVL properties.
-     * 
-     * @param node the root of the subtree to balance
-     * @return the new root of the subtree after balancing
+	/**
+     * Balances the AVL Tree by checking the balance factor of the node
+     * and performing the appropriate rotations if necessary.
+     *
+     * @param node the node to be balanced.
+     * @return the balanced node after rotations.
      */
 	private Node balance(Node node) {
         int balanceFactor = getBalanceFactor(node);
@@ -164,7 +164,15 @@ public class AVLTree extends BinarySearchTree{
         }
         return node;
     }
-	 
+	
+	
+	
+	/**
+     * Calculates the balance factor of a given node.
+     *
+     * @param node the node for which to calculate the balance factor.
+     * @return the balance factor of the node.
+     */
 	private int getBalanceFactor(Node node) {
         if (node == null) {
             return 0;
@@ -172,6 +180,13 @@ public class AVLTree extends BinarySearchTree{
         return getHeight(node.left) - getHeight(node.right);
     }
 	
+	
+	/**
+     * Gets the height of the specified node.
+     *
+     * @param node the node for which to get the height.
+     * @return the height of the node, or 0 if the node is null.
+     */
 	public int getHeight(Node node) {
         if (node == null) {
             return 0;
@@ -179,4 +194,6 @@ public class AVLTree extends BinarySearchTree{
         return node.height;
     }
 	 
+	
+
 }
