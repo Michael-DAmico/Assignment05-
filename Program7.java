@@ -1,3 +1,7 @@
+/**
+ * @author Christian Burke and Michael D'Amico
+ * @version 14 November 2024
+ */
 package songpack;
 
 import java.io.BufferedReader;
@@ -5,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class program7 {
+public class Program7 {
     
     public static void main(String[] args) {
         if (args.length < 2) {
@@ -17,46 +21,52 @@ public class program7 {
         String genre = args[1];
         
         ArrayList<Song> songs = readSongsFromTSV(filePath);
-        AVLTree avlTree = new AVLTree();
-        BinarySearchTree bstTree = new BinarySearchTree();
+        
         
         // Build AVL Tree and BST for the given genre
-        long avlStartTime = System.nanoTime();
+        long avlStartTime = System.currentTimeMillis();
+        AVLTree avlTree = new AVLTree();
         for (Song song : songs) {
             if (song.getTag().equalsIgnoreCase(genre)) {
                 avlTree.insert(song);
             }
         }
-        long avlEndTime = System.nanoTime();
+        long avlEndTime = System.currentTimeMillis();
         
-        long bstStartTime = System.nanoTime();
+        long bstStartTime = System.currentTimeMillis();
+        BinarySearchTree bstTree = new BinarySearchTree();
         for (Song song : songs) {
             if (song.getTag().equalsIgnoreCase(genre)) {
                 bstTree.insert(song);
             }
         }
-        long bstEndTime = System.nanoTime();
+        long bstEndTime = System.currentTimeMillis();
         
         // Calculate build times
-        long avlBuildTime = (avlEndTime - avlStartTime) / 1_000_000; // in milliseconds
-        long bstBuildTime = (bstEndTime - bstStartTime) / 1_000_000; // in milliseconds
+        long avlBuildTime = (avlEndTime - avlStartTime) ; // in milliseconds
+        long bstBuildTime = (bstEndTime - bstStartTime) ; // in milliseconds
         
         // Print AVL Tree statistics
         System.out.println("AVL Tree Statistics for genre: " + genre);
-        System.out.println("Left Rotations: " + avlTree.getLeftRotations());
-        System.out.println("Right Rotations: " + avlTree.getRightRotations());
-        System.out.println("Left-Right Rotations: " + avlTree.getLeftRightRotations());
-        System.out.println("Right-Left Rotations: " + avlTree.getRightLeftRotations());
-        System.out.println("Height of AVL Tree: " + avlTree.getHeight(avlTree.root));
-        System.out.println("Build Time for AVL Tree: " + avlBuildTime + " milliseconds");
+        System.out.println(avlTree.getLeftRotation()+" Left Rotations");
+        System.out.println(avlTree.getRightRotation()+" Right Rotations ");
+        System.out.println(avlTree.getLeftRightRotation()+" Left-Right Rotations ");
+        System.out.println(avlTree.getRightLeftRotation()+" Right-Left Rotations");
+        System.out.println("The height of AVL Tree is: " + avlTree.getHeight(avlTree.root));
+        System.out.println(avlBuildTime+ " milliseconds to build the AVL Tree for "+genre+" songs");
+        performSearches(avlTree, genre);
 
+        //spacer
+        System.out.println();
+        
         // Print BST statistics
-        System.out.println("\nBinary Search Tree Statistics for genre: " + genre);
-        System.out.println("Height of BST: " + bstTree.getHeight(bstTree.root)); // Assuming you have a getHeight method in BST
-        System.out.println("Build Time for BST: " + bstBuildTime + " milliseconds");
+        System.out.println("Binary Search Tree Statistics for genre: " + genre);
+        System.out.println(bstBuildTime+" milliseconds to build the BST for "+genre+" songs");
+        System.out.println("The height of the tree is: " + bstTree.getHeight(bstTree.root)); // Assuming you have a getHeight method in BST
+        
 
         // Perform searches and measure time
-        performSearches(avlTree, genre);
+        //performSearches(avlTree, genre);
         performSearches(bstTree, genre);
     }
 
