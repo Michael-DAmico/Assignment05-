@@ -165,6 +165,42 @@ The top 5 songs with the highest scores are shown as the best matches for your s
 
 This program allows users to analyze a collection of songs sorted on their views and genre. It uses binary search trees and AVL trees to store the songs. The program reads song data from a TSV file and builds both an AVL tree and a binary search tree (BST) based on a specified genre. It also provides statistics on tree rotations (for AVL tree) and search times.
 
+Contributions:
+
+Christian
+
+  	Program7 performSearch methods
+   	insert method,
+    	insertAVL method,
+     	balance method,
+      	observations for.pdf
+       	readSongsFromTSV method,
+  	Javadoc
+   	ReadMe
+  
+  
+Michael
+	
+ 	Program7 main,
+  	getters setters methods,
+   	left & right rotation methods,
+  	updateHeight & getHeight & getBalanceFactor method,
+   	Data tables for.pdf,
+    	Comparisons for.pdf
+    	Complexity for.pdf,
+ 	Javadoc,
+
+
+  
+  Changes Made:
+  
+  
+ 	Added to MyDataReader class readSongsFromTSV method
+  	Added to BinarySearchTree class getHeight method and added height to the constructor 
+ 	Added AVLTree class 
+ 	Added Program7 class
+  
+
 ## Features
 
 - **Insertion and Tree Construction**: Songs are inserted into both an AVL tree and a binary search tree based on a specific genre.
