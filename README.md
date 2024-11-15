@@ -15,7 +15,7 @@ Christian
 
   	Main
   	Javadoc,
-	  .PDF
+	.PDF
   
   
 Michael
@@ -171,10 +171,10 @@ Christian
 
   	Program7 performSearch methods
    	insert method,
-    	insertAVL method,
-     	balance method,
-      	observations for.pdf
-       	readSongsFromTSV method,
+    insertAVL method,
+    balance method,
+ 	observations for.pdf
+  	readSongsFromTSV method,
   	Javadoc
    	ReadMe
   
@@ -186,8 +186,8 @@ Michael
    	left & right rotation methods,
   	updateHeight & getHeight & getBalanceFactor method,
    	Data tables for.pdf,
-    	Comparisons for.pdf
-    	Complexity for.pdf,
+    Comparisons for.pdf
+    Complexity for.pdf,
  	Javadoc,
 
 
