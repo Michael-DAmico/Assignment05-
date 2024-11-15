@@ -20,6 +20,7 @@ public class BinarySearchTree {
 		Song data;
 		Node left;
 		Node right;
+		int height;
 		 /**
          * Constructor for Node.
          * @param data The Song data to be stored in the node.
@@ -27,6 +28,7 @@ public class BinarySearchTree {
 		public Node(Song data) {
 			this.data = data;
 			left = right = null;
+			height = 1;
 		}
 	}
 	Node root;// attribute
