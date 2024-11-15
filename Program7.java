@@ -4,9 +4,7 @@
  */
 package songpack;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 public class Program7 {
@@ -20,7 +18,7 @@ public class Program7 {
         String filePath = args[0];
         String genre = args[1];
         
-        ArrayList<Song> songs = readSongsFromTSV(filePath);
+        ArrayList<Song> songs = MyDataReader.readSongsFromTSV(filePath);
         
         
         // Build AVL Tree and BST for the given genre
@@ -54,7 +52,9 @@ public class Program7 {
         System.out.println(avlTree.getRightLeftRotation()+" Right-Left Rotations");
         System.out.println("The height of AVL Tree is: " + avlTree.getHeight(avlTree.root));
         System.out.println(avlBuildTime+ " milliseconds to build the AVL Tree for "+genre+" songs");
-        performSearches(avlTree, genre);
+        
+        // Perform searches and measure time
+        performAVLSearches(avlTree, genre);
 
         //spacer
         System.out.println();
@@ -66,38 +66,18 @@ public class Program7 {
         
 
         // Perform searches and measure time
-        //performSearches(avlTree, genre);
-        performSearches(bstTree, genre);
+        performBSTSearches(bstTree, genre);
     }
 
+    
     /**
-     * Reads songs from a TSV file using the myDataReaders.lineToReport method.
-     * @param filePath Path to the TSV file.
-     * @return ArrayList of Song objects.
+     * Performs search operations on a Binary Search Tree (BST) for specific view count values.
+     * Times each search operation and prints the result in microseconds.
+     *
+     * @param tree  the BinarySearchTree instance to perform searches on
+     * @param genre the genre of songs being searched, used for logging or tracking purposes
      */
-    private static ArrayList<Song> readSongsFromTSV(String filePath) {
-        ArrayList<Song> songs = new ArrayList<>();
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            
-            // Skip header if present
-            br.readLine();
-            
-            while ((line = br.readLine()) != null) {
-                // Use lineToReport to parse the line and create a Song object
-                Song song = MyDataReader.lineToReport(line);
-                songs.add(song);
-            }
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return songs;
-    }
-
-    private static void performSearches(BinarySearchTree tree, String genre) {
+    private static void performBSTSearches(BinarySearchTree tree, String genre) {
         int[] views = new int[] {-2, 12345, 2, 5000, 1000000}; // Example search queries
         for (int view : views) {
             long startTime = System.nanoTime();
@@ -107,8 +87,17 @@ public class Program7 {
             System.out.println("Search time for view " + view + ": " + searchTime + " microseconds");
         }
     }
-
-    private static void performSearches(AVLTree tree, String genre) {
+    
+    
+    
+    /**
+     * Performs search operations on an AVL Tree for specific view count values.
+     * Times each search operation and prints the result in microseconds.
+     *
+     * @param tree  the AVLTree instance to perform searches on
+     * @param genre the genre of songs being searched, used for logging or tracking purposes
+     */
+    private static void performAVLSearches(AVLTree tree, String genre) {
         int[] views = new int[] {-2, 12345, 2, 5000, 1000000}; // Example search queries
         for (int view : views) {
             long startTime = System.nanoTime();
